@@ -1,33 +1,20 @@
-const Models = require('../../models');
 
-beforeAll((done) => {
-  Models.urls.truncate().then(() => {
+const createShortUrl = require('../helpers/createShortUrl');
+
+describe('Testing the helper function', () => {
+  test('createShortUrl should return a shorturl of length 6', (done) => {
+    const longurl = 'http:google.com/3456';
+    const shorturl = createShortUrl(longurl, 0, 6);
+    expect(shorturl.length).toBe(6);
     done();
   });
-});
-
-afterAll((done) => {
-  Models.urls.truncate().then(() => {
+  test('createShortUrl should return same shorturl for two same longurls', (done) => {
+    const longurl1 = 'http:google.com/3456';
+    const longurl2 = 'http:google.com/3456';
+    const shorturl1 = createShortUrl(longurl1, 0, 6);
+    const shorturl2 = createShortUrl(longurl2, 0, 6);
+    expect(shorturl1).toBe(shorturl2);
     done();
-  });
-});
-
-describe('Testing the mmodels function createobject', () => {
-  test('CreateObject function should create one entry if the longurl not present in database', (done) => {
-    const longurl = 'http:google.com/3456';
-    const shorturl = 'abcder';
-    Models.urls.createObject(shorturl, longurl).spread((urlResult, created) => {
-      expect(created).toBe(true);
-      done();
-    });
-  });
-  test('CreateObject function should not create and entry for already existing entry', (done) => {
-    const longurl = 'http:google.com/3456';
-    const shorturl = 'abcder';
-    Models.urls.createObject(shorturl, longurl).spread((urlResult, created) => {
-      expect(created).toBe(false);
-      done();
-    });
   });
 });
 
