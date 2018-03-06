@@ -31,3 +31,12 @@ describe('Testing the models function createobject', () => {
   });
 });
 
+describe('Validating database', () => {
+  test('Datbase entry for shorturl more than 6 characters ', (done) => {
+    const longurl = 'http:google.com/2';
+    const shorturl = 'abcderu';
+    const createObjectpromise = Models.urls.createObject(shorturl, longurl);
+    createObjectpromise.catch(err => expect(err.message).toEqual('value too long for type character varying(6)'));
+    done();
+  });
+});
