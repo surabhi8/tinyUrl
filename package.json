@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate  && jest --coverage",
+    "start":"nodemon ./src/solution/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +27,7 @@
     "joi-phone-validator": "^1.0.0",
     "jsonwebtoken": "^8.1.1",
     "md5": "^2.2.1",
+    "md5-base64": "0.0.3",
     "node-fetch": "^2.0.0",
     "pg": "^7.4.1",
     "request-promise": "^4.2.2",

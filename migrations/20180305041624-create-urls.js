@@ -12,14 +12,16 @@ module.exports = {
       type: Sequelize.STRING,
     },
     shorturl: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(6),
+      allowNull: false,
+      unique: true,
     },
     createdAt: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.DATE,
     },
     updatedAt: {
-      allowNull: false,
+      allowNull: true,
       type: Sequelize.DATE,
     },
   }),
