@@ -1,4 +1,4 @@
-const getShortUrl = require('../src/helpers/getShortUrl');
+const createShortUrl = require('../src/helpers/createShortUrl');
 
 const getUrlArray = () => {
   const urls = {};
@@ -7,7 +7,7 @@ const getUrlArray = () => {
     let shorturl = '';
     let head = 0;
     while (true) {
-      shorturl = getShortUrl(longurl, head, head + 6);
+      shorturl = createShortUrl(longurl, head, head + 6);
       if (urls[shorturl] === undefined) {
         urls[shorturl] = { longurl, shorturl };
         break;

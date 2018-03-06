@@ -1,5 +1,5 @@
 const models = require('../../../models');
-const getShortUrl = require('../../helpers/getShortUrl');
+const createURL = require('../../lib/createURL');
 //
 // const creatNewRecord = (longurl, start, end) => {
 //   const shorturl = getShortUrl(longurl, start, end);
@@ -46,22 +46,6 @@ const getShortUrl = require('../../helpers/getShortUrl');
 //     },
 //   },
 // ];
-const md5 = require('md5');
-
-const createNewRecord = (longurl, hash, index) => {
-  const shorturl = hash.substring(index, index + 6);
-  return models.urls.findOne({
-    where: {
-      shorturl,
-    },
-  })
-    .then((result) => {
-      if (result === null) {
-        return models.urls.create({ longurl, shorturl });
-      }
-      return createNewRecord(longurl, hash, index + 6);
-    });
-};
 
 module.exports = [
   {
@@ -69,21 +53,8 @@ module.exports = [
     method: 'GET',
     handler: (request, response) => {
       const { longurl } = request.query;
-      const hash = md5(longurl);
-      const shorturl = hash.substring(0, 6);
-      models.urls.findOrCreate({ where: { shorturl, longurl } }).spread((urlResult, created) => {
-        if (created === true) {
-          response({ message: urlResult.shorturl, status_code: 201 });
-        } else {
-          createNewRecord(longurl, hash, 0).then(() => models.urls.findOne({
-            where: {
-              longurl,
-            },
-          }))
-            .then((secondResult) => {
-              response({ shorturl: secondResult.shorturl });
-            });
-        }
+      createURL(longurl).then((result) => {
+        response({ message: result });
       });
     },
   },
