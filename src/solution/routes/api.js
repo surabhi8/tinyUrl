@@ -1,5 +1,4 @@
-const models = require('../../../models');
-const createURL = require('../../lib/createURL');
+const createUrlandInsert = require('../../lib/createUrlandInsert');
 //
 // const creatNewRecord = (longurl, start, end) => {
 //   const shorturl = getShortUrl(longurl, start, end);
@@ -53,7 +52,7 @@ module.exports = [
     method: 'GET',
     handler: (request, response) => {
       const { longurl } = request.query;
-      createURL(longurl).then((result) => {
+      createUrlandInsert(longurl).then((result) => {
         response({ message: result });
       });
     },

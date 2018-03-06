@@ -1,9 +1,12 @@
 const models = require('../../models');
 const generateHash = require('../helpers/generateHash');
+const libfunction = require('../helpers/createShortUrl');
 
 const increment = 6;
 const createNewRecord = (longurl, hash, index) => {
-  const shorturl = hash.substring(index, index + increment);
+  const shorturl = libfunction.createShortUrl(longurl, index, index + increment);
+  console.log(index, index + increment);
+  console.log(shorturl);
   return models.urls.createObject(shorturl, longurl).spread((urlResult, created) => {
     if (created === false && urlResult.longurl !== longurl) {
       console.log('CONFLICT OCCURED');

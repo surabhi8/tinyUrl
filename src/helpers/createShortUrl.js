@@ -5,4 +5,4 @@ const createShortUrl = (longurl, start, end) => {
   const shorturl = hash.substring(start, end);
   return shorturl;
 };
-module.exports = createShortUrl;
+module.exports = { createShortUrl };
