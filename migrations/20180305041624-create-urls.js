@@ -13,7 +13,6 @@ module.exports = {
     },
     shorturl: {
       type: Sequelize.STRING(6),
-      allowNull: false,
       unique: true,
     },
     createdAt: {

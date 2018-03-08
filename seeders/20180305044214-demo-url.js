@@ -1,24 +1,22 @@
-const createShortUrl = require('../src/helpers/createShortUrl');
+const generateHash = require('../src/helpers/generateHash');
 
+const increment = 6;
 const getUrlArray = () => {
   const urls = {};
+  const map = {};
   for (let i = 0; i < 1000000; i += 1) {
+    let j = 0;
     const longurl = `http://google.com/${i}`;
-    let shorturl = '';
-    let head = 0;
-    while (true) {
-      shorturl = createShortUrl(longurl, head, head + 6);
-      if (urls[shorturl] === undefined) {
-        urls[shorturl] = { longurl, shorturl };
+    const hash = generateHash(longurl);
+    while (map[hash.substring(j, j + increment)] !== undefined) {
+      j += increment;
+      if (j + increment > hash.length) {
         break;
-      } else {
-        head = (head + 1) % 26;
-        if (head === 25) {
-          head = 0;
-          break;
-        }
       }
     }
+    map[hash.substring(j, j + increment)] = true;
+    const shorturl = hash.substring(j, j + increment);
+    urls[shorturl] = { longurl, shorturl };
   }
   return Object.values(urls);
 };
