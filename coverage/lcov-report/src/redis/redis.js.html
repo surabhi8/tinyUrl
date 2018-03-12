@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/helpers/createShortUrl.js</title>
+    <title>Code coverage report for src/redis/redis.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">src/helpers</a> createShortUrl.js
+      <a href="../../index.html">All files</a> / <a href="index.html">src/redis</a> redis.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/6</span>
+        <span class='fraction'>3/3</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,43 +30,34 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/6</span>
+        <span class='fraction'>3/3</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
 4
 5
-6
-7
-8
-9</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+6</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const generateHash = require('./generateHash');
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const redis = require('redis');
 &nbsp;
-const createShortUrl = <span class="fstat-no" title="function not covered" >(l</span>ongurl, start, end) =&gt; {
-  const hash = <span class="cstat-no" title="statement not covered" >generateHash(longurl);</span>
-  const shorturl = <span class="cstat-no" title="statement not covered" >hash.substring(start, end);</span>
-<span class="cstat-no" title="statement not covered" >  return shorturl;</span>
-};
-module.exports = { createShortUrl };
+const redisClient = redis.createClient({ host: 'localhost', port: 6379 });
+&nbsp;
+module.exports = redisClient;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

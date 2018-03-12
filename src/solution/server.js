@@ -6,7 +6,7 @@ const routes = require('./routes/index.js');
 
 server.connection({
   host: 'localhost',
-  port: 9010,
+  port: 9000,
 });
 server.register({
   register: Good,

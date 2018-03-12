@@ -1,8 +1,6 @@
 const createUrlandInsert = require('../../lib/createUrlandInsert');
 const Model = require('../../../models');
-const redis = require('redis');
-
-const redisClient = redis.createClient({ host: 'localhost', port: 6379 });
+const redisClient = require('../../../src/redis/redis');
 
 module.exports = [
   {
@@ -27,14 +25,19 @@ module.exports = [
           Model.urls.findOne({
             where: { shorturl },
           }).then((url) => {
-            redisClient.hset('urls', shorturl, url.longurl, (err, resp) => {
-              if (resp) {
-                console.log('inserted in redis');
-              } else {
-                console.log(err);
-              }
-            });
-            reply({ shorturl: url.shorturl, longurl: url.longurl });
+            if (url) {
+              console.log('hello');
+              redisClient.hset('urls', shorturl, url.longurl, (err, resp) => {
+                if (resp) {
+                  console.log('inserted in redis');
+                } else {
+                  console.log(err);
+                }
+              });
+              reply({ shorturl: url.shorturl, longurl: url.longurl });
+            } else {
+              reply({ error: `The is no longurl mapped to ${shorturl} shorturl` });
+            }
           });
         }
       });
