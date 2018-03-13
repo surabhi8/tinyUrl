@@ -23,5 +23,12 @@
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "circleci-test":{
+    "username": "url",
+    "password": "tinyurl",
+    "database": "circleci_url_shortener",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }

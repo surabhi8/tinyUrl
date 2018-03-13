@@ -25,7 +25,7 @@ describe('Testing the redis cache functionality', () => {
       method: 'GET',
       url: '/read?shorturl=grfgfe',
     };
-    Server.inject(options, (response) => {
+    Server.inject(options, () => {
       redisClient.hget('urls', 'grfgfe', (geterr, reply) => {
         if (reply) {
           expect(reply).toEqual('http://google.com/qwqe');
@@ -41,7 +41,7 @@ describe('Testing the redis cache functionality', () => {
       method: 'GET',
       url: '/read?shorturl=grfgfe',
     };
-    Server.inject(options, (response) => {
+    Server.inject(options, () => {
       redisClient.hget('urls', 'grfgfe', (geterr, reply) => {
         if (reply) {
           expect(reply).toEqual('http://google.com/qwqe');
