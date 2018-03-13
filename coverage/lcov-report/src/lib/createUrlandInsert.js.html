@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/20</span>
+        <span class='fraction'>20/20</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">36.84% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/19</span>
+        <span class='fraction'>19/19</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -69,55 +69,55 @@
 24
 25
 26
-27</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+27</td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const models = require('../../models');
 const generateHash = require('../helpers/generateHash');
 const libfunction = require('../helpers/createShortUrl');
 &nbsp;
 const increment = 6;
-const createNewRecord = <span class="fstat-no" title="function not covered" >(l</span>ongurl, hash, index) =&gt; {
-  const shorturl = <span class="cstat-no" title="statement not covered" >libfunction.createShortUrl(longurl, index, index + increment);</span>
-<span class="cstat-no" title="statement not covered" >  console.log(index, index + increment);</span>
-<span class="cstat-no" title="statement not covered" >  console.log(shorturl);</span>
-<span class="cstat-no" title="statement not covered" >  return models.urls.createObject(shorturl, longurl).spread(<span class="fstat-no" title="function not covered" >(u</span>rlResult, created) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (created === false &amp;&amp; urlResult.longurl !== longurl) {</span>
-<span class="cstat-no" title="statement not covered" >      console.log('CONFLICT OCCURED');</span>
-<span class="cstat-no" title="statement not covered" >      return createNewRecord(longurl, hash, index + 1);</span>
+const createNewRecord = (longurl, hash, index) =&gt; {
+  const shorturl = libfunction.createShortUrl(longurl, index, index + increment);
+  console.log(index, index + increment);
+  console.log(shorturl);
+  return models.urls.createObject(shorturl, longurl).spread((urlResult, created) =&gt; {
+    if (created === false &amp;&amp; urlResult.longurl !== longurl) {
+      console.log('CONFLICT OCCURED');
+      return createNewRecord(longurl, hash, index + 1);
     }
-<span class="cstat-no" title="statement not covered" >    return { shorturl, longurl };</span>
+    return { shorturl, longurl };
   });
 };
 &nbsp;
-const createUrlandInsert = <span class="fstat-no" title="function not covered" >(l</span>ongurl) =&gt; {
-  const hash = <span class="cstat-no" title="statement not covered" >generateHash(longurl);</span>
-  const index = <span class="cstat-no" title="statement not covered" >0;</span>
-  const newRecordPromise = <span class="cstat-no" title="statement not covered" >createNewRecord(longurl, hash, index);</span>
-<span class="cstat-no" title="statement not covered" >  return newRecordPromise.then(<span class="fstat-no" title="function not covered" >re</span>sult =&gt; <span class="cstat-no" title="statement not covered" >result)</span>;</span>
+const createUrlandInsert = (longurl) =&gt; {
+  const hash = generateHash(longurl);
+  const index = 0;
+  const newRecordPromise = createNewRecord(longurl, hash, index);
+  return newRecordPromise.then(result =&gt; result);
 };
 &nbsp;
 module.exports = createUrlandInsert;
@@ -127,7 +127,7 @@ module.exports = createUrlandInsert;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Mar 08 2018 14:41:05 GMT+0530 (IST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Mar 13 2018 12:44:23 GMT+0530 (IST)
 </div>
 </div>
 <script src="../../prettify.js"></script>

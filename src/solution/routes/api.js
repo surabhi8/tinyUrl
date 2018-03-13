@@ -25,6 +25,7 @@ module.exports = [
           Model.urls.findOne({
             where: { shorturl },
           }).then((url) => {
+            console.log('Hello', url);
             if (url) {
               console.log('hello');
               redisClient.hset('urls', shorturl, url.longurl, (err, resp) => {

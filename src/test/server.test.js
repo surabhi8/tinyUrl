@@ -2,7 +2,10 @@ const Models = require('../../models');
 const Server = require('../../src/solution/server');
 
 beforeAll((done) => {
-  Models.urls.truncate().then(() => {
+  Models.urls.create({
+    longurl: 'http://google.com/1',
+    shorturl: '56789',
+  }).then(() => {
     done();
   });
 });
@@ -20,9 +23,12 @@ describe('Testing the write api', () => {
       url: '/write',
       payload: { longurl: 'http:/google.com/1234' },
     };
-    Models.urls.findAll({ where: { longurl: 'http:/google.com/1234' } }).then((result) => {
-      Server.inject(options, (response) => {
-        expect(response.result.shorturl).toEqual(result.shorturl);
+
+    Server.inject(options, (response) => {
+      Models.urls.findOne({ where: { longurl: 'http:/google.com/1234' } }).then((result) => {
+        console.log(response.result.message.shorturl);
+        console.log(result.shorturl);
+        expect(response.result.message.shorturl).toEqual(result.shorturl);
         done();
       });
     });

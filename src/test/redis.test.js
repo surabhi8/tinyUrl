@@ -12,21 +12,21 @@ beforeAll((done) => {
   });
 });
 
-// afterAll((done) => {
-//   redisClient.flushdb();
-//   Models.urls.truncate().then(() => {
-//     done();
-//   });
-// });
+afterAll((done) => {
+  redisClient.flushdb();
+  Models.urls.truncate().then(() => {
+    done();
+  });
+});
 
 describe('Testing the redis cache functionality', () => {
   test('If the url to read not present in redis it should insert in cache', (done) => {
     const options = {
       method: 'GET',
-      url: '/read?shorturl=grfgrf',
+      url: '/read?shorturl=grfgfe',
     };
     Server.inject(options, (response) => {
-      redisClient.hget('urls', 'grfgrf', (geterr, reply) => {
+      redisClient.hget('urls', 'grfgfe', (geterr, reply) => {
         if (reply) {
           expect(reply).toEqual('http://google.com/qwqe');
           done();
@@ -34,25 +34,20 @@ describe('Testing the redis cache functionality', () => {
       });
     });
   });
-
-  // test('Lib function should insert after resolving conflicts', (done) => {
-  //   const longurl1 = 'http:google.com/3456';
-  //   const longurl2 = 'http:google.com/898786';
-  //   const stub = sinon.stub(libfunction, 'createShortUrl');
-  //   stub.withArgs(longurl1, 0, 6).returns('876855');
-  //   stub.withArgs(longurl2, 0, 6).returns('876855');
-  //   stub.withArgs(longurl2, 1, 7).returns('987654');
-  //   createUrlandInsert(longurl1).then((response) => {
-  //     expect(response.shorturl).toEqual('876855');
-  //     createUrlandInsert(longurl2).then((result2) => {
-  //       expect(result2.shorturl).toEqual('987654');
-  //       Models.urls.findAll({ where: { shorturl: result2.shorturl } }).then((searchResult) => {
-  //         expect(searchResult.length).toBe(1);
-  //         stub.restore();
-  //         done();
-  //       });
-  //     });
-  //   });
-  // });
 });
-
+describe('Testing the redis cache functionality', () => {
+  test('If the url already present in cache it should return it', (done) => {
+    const options = {
+      method: 'GET',
+      url: '/read?shorturl=grfgfe',
+    };
+    Server.inject(options, (response) => {
+      redisClient.hget('urls', 'grfgfe', (geterr, reply) => {
+        if (reply) {
+          expect(reply).toEqual('http://google.com/qwqe');
+          done();
+        }
+      });
+    });
+  });
+});
