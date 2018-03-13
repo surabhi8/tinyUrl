@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:migrate  && jest --coverage",
     "start": "nodemon ./src/solution/server.js",
-    "circleci-test":"NODE_ENV=circleci-test sequelize db:migrate:undo:all && NODE_ENV=circleci-test sequelize db:migrate && NODE_ENV=circleci-test sequelize db:seed:all  && NODE_ENV=circleci-test sequelize db:migrate && jest --coverage"
+    "circleci-test":"NODE_ENV=circleci-test sequelize db:migrate:undo:all && NODE_ENV=circleci-test sequelize db:migrate && NODE_ENV=circleci-test sequelize db:seed:all  && NODE_ENV=circleci-test sequelize db:migrate &&  NODE_ENV=circleci-test jest --coverage"
   },
   "author": "",
   "license": "ISC",
